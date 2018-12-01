@@ -42,6 +42,10 @@ $(NAME): $(SRC_O)
 libft:
 	cd get_next_line/libft && make && cd ../../
 
+test:
+	clang test.c -L minilibx_macos -lmlx -framework OpenGL -framework Appkit
+	./a.out
+
 clean:	
 	@/bin/rm -f $(SRC_O)
 

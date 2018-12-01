@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-t_vec3 	isoprojection(int x, int y, int z, t_win *win)
+t_vec3 	isoprojection(double x, double y, double z, t_win *win)
 {
 	t_vec3	vec;
 	double	a;

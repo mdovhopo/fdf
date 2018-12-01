@@ -56,12 +56,18 @@ typedef struct 	s_win
 	void		*win_ptr;
 	int			scale;
 	int			color;
-	double		*alpha;
+	int			alpha;
 	double		*beta;
 	t_vec2		translate;
 	t_map		*map;
 	double		**bufferx;
 	double		**buffery;
+	// for image
+	void		*img_ptr;
+	int 		*bits_per_pixel;
+	int 		*size_line;
+	int 		*endian;
+	char		*image;
 }				t_win;
 
 t_map	*readmap(char *s);
@@ -69,7 +75,7 @@ void	render(t_win *win, short int repaint);
 void	grid(t_win *win, int offsetx, int offsety, int res, short int repaint);
 void	line(int x1, int y1, int x2, int y2, t_win *win);
 t_vec3	vec3d(int x, int y, int z);
-t_vec3 	isoprojection(int x, int y, int z, t_win *win);
+t_vec3 	isoprojection(double x, double y, double z, t_win *win);
 void	inc_dec_z(t_map *map, int sign);
 void	rect(t_vec2 start, t_vec2 size, t_win *win);
 void	rotate(t_win *win);

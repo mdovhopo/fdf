@@ -12,29 +12,6 @@
 
 #include "fdf.h"
 
-static int	find_gound(t_map *map)
-{
-	int		x;
-	int		z;
-	int 	min;
-
-	z = 0;
-	min = map->map[0][0];
-	while (z < map->sizez)
-	{
-		x = 0;
-		while (x < map->sizex)
-		{
-			if (map->map[z][x] < min)
-				min = map->map[z][x];
-			x++;
-		}
-		z++;
-	}
-	printf("min: %i\n", min);
-	return (min);
-}
-
 static int	find_endl(char *s)
 {
 	int		x;
@@ -85,15 +62,15 @@ t_map		*readmap(char *s)
 	t_map	*map;
 	int		i;
 	char	*line;
-	int 	status;
+
 
 	i = 0;
 	map = (t_map *)malloc(sizeof(t_map *));
 	if ((fd = open(s, O_RDONLY)) < 0)
 		return (NULL);
-	status = get_next_line(fd, &line);
-	free(line);
+	get_next_line(fd, &line);
 	map->sizex = ft_count_words((char *)line, ' ');
+	//close (fd);
 	map->sizez = count_height(s);
 	fd = open(s, O_RDONLY);
 	map->map = (int **)malloc(sizeof(int *) * map->sizez);
@@ -101,7 +78,6 @@ t_map		*readmap(char *s)
 	{
 		map->map[i] = (int *)malloc(sizeof(int *) * map->sizex);
 		fill_map(line, map->map[i]);
-		free(line);
 		i++;
 	}
 	close(fd);
