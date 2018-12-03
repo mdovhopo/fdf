@@ -12,73 +12,96 @@
 
 #include "fdf.h"
 
-static int	find_endl(char *s)
-{
-	int		x;
-
-	x = 0;
-	while (*s++)
-		x += (*s == '\n' ? 1 : 0);
-	return (x);
-}
-
-static int	count_height(char *s)
+static int		count_height(char *s)
 {
 	int		fd;
-	int		ret;
-	char	buff[BUFF_SIZE + 1];
+	char	*line;
 	int		c_y;
+	int		ret;
 
 	c_y = 0;
 	fd = open(s, O_RDONLY);
-	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
+	while (get_next_line(fd, &line) > 0)
 	{
-		buff[ret] = '\0';
-		c_y += find_endl(buff);
+		c_y++;
+		free(line);
 	}
 	close(fd);
 	return (c_y);
 }
 
-static void	fill_map(char *line, int *int_line)
+static int		fill_map(char *line, int *line_int)
 {
-	int 	i;
+	int	i;
 
 	i = 0;
 	while (*line)
 	{
 		while (*line == ' ')
+		{
 			line++;
-		int_line[i] = ft_atoi((char *)line);
-		while (*line != ' ' && *line)
+			if (!*line)
+				return (i);
+		}
+		line_int[i++] = ft_atoi((char *)line);
+		while (*line != ' ')
+		{
+			if (!*line)
+				return (i);
 			line++;
-		i++;
+		}
 	}
+	return (i);
 }
 
-t_map		*readmap(char *s)
+static int		find_width(char *s, t_map *map, int *fd)
 {
-	int		fd;
+	char	*line;
+	int		length;
+
+	*fd = open(s, O_RDONLY);
+	get_next_line(*fd, &line);
+	map->sizex = ft_count_words((char *)line, ' ');
+	if ((map->map[0] = (int *)malloc(sizeof(int *) * map->sizex)))
+		fill_map(line, map->map[0]);
+	else
+		return (-42);
+	return (1);
+}
+
+static void		free_map(t_map *map, int i)
+{
+	while (--i > -1)
+		free(map->map[i]);
+	free(map);
+	write(1, WRONG_LINE_LENGTH, 18);
+	exit(0);
+}
+
+t_map			*readmap(char *s)
+{
 	t_map	*map;
 	int		i;
 	char	*line;
+	int		prev_line;
+	int		fd;
 
-
-	i = 0;
+	i = 1;
 	map = (t_map *)malloc(sizeof(t_map *));
-	if ((fd = open(s, O_RDONLY)) < 0)
+	if ((map->sizez = count_height(s)) < 0)
 		return (NULL);
-	get_next_line(fd, &line);
-	map->sizex = ft_count_words((char *)line, ' ');
-	//close (fd);
-	map->sizez = count_height(s);
-	fd = open(s, O_RDONLY);
 	map->map = (int **)malloc(sizeof(int *) * map->sizez);
-	while ((get_next_line(fd, &line) > 0))
+	if ((find_width(s, map, &fd)) < 0)
+		return (NULL);
+	if (map->sizex < 0)
+		return (NULL);
+	prev_line = map->sizex;
+	while (get_next_line(fd, &line) > 0)
 	{
 		map->map[i] = (int *)malloc(sizeof(int *) * map->sizex);
-		fill_map(line, map->map[i]);
-		i++;
+		if (prev_line != fill_map(line, map->map[i++]))
+			free_map(map, i - 1);
+		free(line);
 	}
 	close(fd);
 	return (map);

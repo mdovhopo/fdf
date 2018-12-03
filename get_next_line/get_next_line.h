@@ -6,14 +6,14 @@
 /*   By: mdovhopo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/02 19:01:31 by mdovhopo          #+#    #+#             */
-/*   Updated: 2018/11/19 17:20:23 by mdovhopo         ###   ########.fr       */
+/*   Updated: 2018/11/12 16:42:45 by mdovhopo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 32
+# define BUFF_SIZE 10
 
 # include <fcntl.h>
 # include <unistd.h>

@@ -21,9 +21,9 @@ INCLUDES = minilibx_macos
 
 GNL_INC = get_next_line
 
-SRC_GNL = $(GNL_INC)/get_next_line.c $(GNL_INC)/libft/libft.a
+SRC_GNL =  $(GNL_INC)/get_next_line.c $(GNL_INC)/libft/libft.a
 
-SRC_C = fdf.c render.c grid.c line.c vec3d.c isoprojection.c readmap.c rect.c del_win.c
+SRC_C = fdf.c render.c grid.c line.c isoprojection.c readmap.c rect.c del_win.c mouse_pressed.c deal_key.c
 
 SOME_STAFF_FOR_MLX = -L minilibx_macos -lmlx -framework OpenGL -framework Appkit
 
@@ -34,13 +34,10 @@ CC = clang
 %.o: %.c
 	$(CC) -o $@ -c $<
 
-all: $(NAME) libft
+all: $(NAME)
 
 $(NAME): $(SRC_O)
 	$(CC) -o $(NAME) -I $(INCLUDES) $(SRC_O) $(SRC_GNL) $(SOME_STAFF_FOR_MLX)
-
-libft:
-	cd get_next_line/libft && make && cd ../../
 
 test:
 	clang test.c -L minilibx_macos -lmlx -framework OpenGL -framework Appkit

@@ -17,7 +17,7 @@ void	del_win(t_win *win)
 	int		z;
 
 	z = 0;
-	while (z < win->map->sizez) // 0 - x 1 - y
+	while (z < win->map->sizez)
 	{
 		free(win->bufferx[z]);
 		free(win->buffery[z]);

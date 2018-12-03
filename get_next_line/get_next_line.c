@@ -12,23 +12,47 @@
 
 #include "get_next_line.h"
 
-static int		set_line(t_gnl **tmp, char *data, char **line)
+#include <stdio.h>
+
+static int		length(char *s)
 {
+	int		length;
+
+	length = 0;
+	if (!s)
+		return (0);
+	while (s[length] != '\0' && s[length] != '\n')
+		length++;
+	return (length);
+}
+
+static char		*set_line(t_gnl **tmp)
+{
+	int		len;
 	t_gnl	*lst;
+	char	*var;
+	char	*line;
 
 	lst = *tmp;
-	if (!data || data[0] == '\0')
-		return (0);
-	if (!(ft_strchr(data, '\n')))
+	len = length(lst->data);
+	line = NULL;
+	if (END_IS_ENDL(lst->data[len]))
 	{
-		*line = ft_strdup(data);
-		lst->data = NULL;
-		return (1);
+		line = ft_strsub(lst->data, 0, len);
+		var = ft_strdup(lst->data + len + 1);
+		free(lst->data);
+		lst->data = var;
+		if (END_IS_NULL(lst->data[0]))
+			ft_strdel(&lst->data);
+		return (line);
 	}
-	*line = ft_strsub(data, 0, (size_t)(ft_strchr(data, '\n') - data));
-	lst->data = ft_strdup(ft_strchr(data, '\n') + 1);
-	ft_strdel(&data);
-	return (1);
+	if (END_IS_NULL(lst->data[len]))
+	{
+		line = ft_strdup(lst->data);
+		ft_strdel(&lst->data);
+		return (line);
+	}
+	return (line);
 }
 
 static t_gnl	*lst_new(int fd)
@@ -38,7 +62,7 @@ static t_gnl	*lst_new(int fd)
 	new_lst = (t_gnl *)malloc(sizeof(t_list));
 	if (new_lst)
 	{
-		new_lst->data = NULL;
+		new_lst->data = ft_strnew(1);
 		new_lst->fd = fd;
 		new_lst->next = NULL;
 	}
@@ -74,9 +98,8 @@ int				get_next_line(const int fd, char **line)
 	if (CHECK_ERRORS(fd, line, buffer))
 		return (ERROR);
 	curr_fd = find_elem(fd, &lst);
-	*line = NULL;
-	if (!curr_fd->data)
-		curr_fd->data = ft_strnew(0);
+	if (curr_fd->data == NULL)
+		curr_fd->data = ft_strnew(1);
 	while ((read_bytes = read(fd, buffer, BUFF_SIZE)))
 	{
 		buffer[read_bytes] = '\0';
@@ -84,10 +107,10 @@ int				get_next_line(const int fd, char **line)
 		free(curr_fd->data);
 		curr_fd->data = tmp;
 		if (ft_strchr(buffer, '\n'))
-			break ;
+			STOP_READING;
 	}
-	if (!read_bytes)
-		if (curr_fd->data)
-			return (set_line(&curr_fd, curr_fd->data, line));
-	return (set_line(&curr_fd, curr_fd->data, line));
+	if (CHECK_IF_EXIT(curr_fd->data, curr_fd->data[0], read_bytes))
+		return (SUCCESS_END);
+	*line = set_line(&curr_fd);
+	return (1);
 }

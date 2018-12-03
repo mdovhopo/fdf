@@ -32,15 +32,9 @@ static	char	*if_min_int_or_0(int n)
 	char *s;
 
 	if (n == 0)
-	{
-		s = (char *)malloc(2);
 		s = ft_strdup("0");
-	}
 	else
-	{
-		s = (char *)malloc(sizeof(char) * 12);
 		s = ft_strdup("-2147483648");
-	}
 	return (s);
 }
 

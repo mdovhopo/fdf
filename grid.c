@@ -17,27 +17,31 @@
 ** 1 - is for x values; 2 - is for y values;
 */
 
-void	grid(t_win *win, int offsetx, int offsety, int res, short int repaint)
+void	grid(t_win *win, int offsetx, int offsety, int res)
 {
-	int		tx = win->translate.x;
-	int		ty = win->translate.y;
+	int		tx;
+	int		ty;
+	int		x;
+	int		z;
 
-	for (int z = 0; z < win->map->sizez; z++)
+	tx = win->translate.x;
+	ty = win->translate.y;
+	z = -1;
+	while (++z < win->map->sizez)
 	{
-		for (int x = 0; x < win->map->sizex; x++)
+		x = -1;
+		while (++x < win->map->sizex)
 		{
-
 			if (x + 1 < win->map->sizex)
-			{
-				line(offsetx + win->bufferx[z][x] * res + tx, offsety + win->buffery[z][x] * res + ty,
-					offsetx + win->bufferx[z][x + 1] * res + tx, offsety + win->buffery[z][x + 1] * res + ty, win); // x + 1
-			}
+				line(ft_new_intvec2(offsetx + win->bufferx[z][x] * res + tx,
+					offsety + win->buffery[z][x] * res + ty),
+					ft_new_intvec2(offsetx + win->bufferx[z][x + 1] * res + tx,
+					offsety + win->buffery[z][x + 1] * res + ty), win);
 			if (z + 1 < win->map->sizez)
-			{
-				line(offsetx + win->bufferx[z][x] * res + tx, offsety + win->buffery[z][x] * res + ty,
-					offsetx + win->bufferx[z + 1][x] * res + tx, offsety + win->buffery[z + 1][x] * res + ty, win); // z + 1
-			}
-			//mlx_pixel_put(win->mlx_ptr, win->win_ptr, offsetx + win->buffer[0][z][x] * res + tx, offsety + win->buffer[1][z][x] * res + ty, 0xff0000);
+				line(ft_new_intvec2(offsetx + win->bufferx[z][x] * res + tx,
+					offsety + win->buffery[z][x] * res + ty),
+					ft_new_intvec2(offsetx + win->bufferx[z + 1][x] * res + tx,
+					offsety + win->buffery[z + 1][x] * res + ty), win);
 		}
 	}
 }

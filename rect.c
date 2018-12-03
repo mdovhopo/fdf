@@ -14,9 +14,22 @@
 
 void	rect(t_vec2 start, t_vec2 size, t_win *win)
 {
-	while (start.y < size.y)
+	int	x;
+	int	y;
+	int	size_x;
+	int	size_y;
+
+	size_x = start.x + size.x;
+	size_y = start.y + size.y;
+	y = (int)start.y;
+	while (y < size_y)
 	{
-		line(start.x, start.y, size.x, start.y, win);
-		start.y++;
+		x = (int)start.x;
+		while (x < size_x)
+		{
+			mlx_pixel_put(win->mlx_ptr, win->win_ptr, x, y, win->color);
+			x++;
+		}
+		y++;
 	}
 }

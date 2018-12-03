@@ -24,23 +24,14 @@
 
 # define WIDTH 2000
 # define HEIGHT 1200
+# define IS_ODD(x) (x % 2 == 0 ? 0 : 1)
 # define TO_RAD M_PI / 180
 # define TO_DEGREE 180 / M_PI
 # define MIN_RES 4
 # define MAX_RES 150
-
-typedef struct 	s_vec3
-{
-	double		x;
-	double		y;
-	double		z;
-}				t_vec3;
-
-typedef struct 	s_vec2
-{
-	double		x;
-	double		y;
-}				t_vec2;
+# define USAGE "Usage: ./fdf <filename>\n"
+# define WRONG_LINE_LENGTH "wrong line length\n"
+# define NO_FILE "no such file or file is empty\n"
 
 typedef struct s_map
 {
@@ -50,6 +41,11 @@ typedef struct s_map
 	int			min_atitude;
 }				t_map;
 
+/*
+** 
+**
+*/
+
 typedef struct 	s_win
 {
 	void		*mlx_ptr;
@@ -57,28 +53,24 @@ typedef struct 	s_win
 	int			scale;
 	int			color;
 	int			alpha;
-	double		*beta;
+	int			beta;
+	int			gamma;
 	t_vec2		translate;
 	t_map		*map;
 	double		**bufferx;
 	double		**buffery;
-	// for image
-	void		*img_ptr;
-	int 		*bits_per_pixel;
-	int 		*size_line;
-	int 		*endian;
-	char		*image;
+	double		**bufferz;
 }				t_win;
 
 t_map	*readmap(char *s);
-void	render(t_win *win, short int repaint);
-void	grid(t_win *win, int offsetx, int offsety, int res, short int repaint);
-void	line(int x1, int y1, int x2, int y2, t_win *win);
-t_vec3	vec3d(int x, int y, int z);
-t_vec3 	isoprojection(double x, double y, double z, t_win *win);
+void	render(t_win *win, unsigned short int recalculate);
+void	grid(t_win *win, int offsetx, int offsety, int res);
+void	line(t_intvec2 start, t_intvec2 end, t_win *win);
+t_vec3 	isoprojection(double x, double y, double z);
 void	inc_dec_z(t_map *map, int sign);
 void	rect(t_vec2 start, t_vec2 size, t_win *win);
-void	rotate(t_win *win);
 void	del_win(t_win *win);
+int 	mouse_pressed(int key, int x, int y, void *param);
+int 	deal_key(int key, void *param);
 
 #endif

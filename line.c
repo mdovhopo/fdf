@@ -12,34 +12,35 @@
 
 #include "fdf.h"
 
-void	line(int x1, int y1, int x2, int y2, t_win *win)
-{
-	int deltaX = abs(x2 - x1);
-	int deltaY = abs(y2 - y1);
-	int signX = x1 < x2 ? 1 : -1;
-	int signY = y1 < y2 ? 1 : -1;
-	int deltaerr;
-	int error = deltaX - deltaY;
+/*
+** error.x - delta error
+** error.y - error
+*/
 
-	mlx_pixel_put(win->mlx_ptr, win->win_ptr, x2, y2, win->color);
-	while (x1 != x2 || y1 != y2) 
+void	line(t_intvec2 start, t_intvec2 end, t_win *win)
+{
+	t_intvec2	delta;
+	t_intvec2	sign;
+	t_intvec2	error;
+
+	delta = ft_new_intvec2(abs(end.x - start.x), -abs(end.y - start.y));
+	sign = ft_new_intvec2(start.x < end.x ? 1 : -1, start.y < end.y ? 1 : -1);
+	error = ft_new_intvec2(delta.x + delta.y, 2 * (delta.x + delta.y));
+	while (start.x != end.x && start.y != end.y)
 	{
-		if (x1 > WIDTH || y1 > HEIGHT)
-			;
-		else if (x1 < 0 || y1 < 0)
-			;
-		else
-		mlx_pixel_put(win->mlx_ptr, win->win_ptr, x1, y1, win->color);
-		deltaerr = error * 2;
-		if (deltaerr > -deltaY) 
+		if (start.x > 0 && start.x < WIDTH && start.y > 60 && start.y < HEIGHT)
+			mlx_pixel_put(win->mlx_ptr, win->win_ptr,
+				start.x, start.y, win->color);
+		error.y = error.x * 2;
+		if (error.y >= delta.y)
 		{
-			error -= deltaY;
-			x1 += signX;
+			error.x += delta.y;
+			start.x += sign.x;
 		}
-		if (deltaerr < deltaX) 
+		if (error.y <= delta.x)
 		{
-			error += deltaX;
-			y1 += signY;
+			error.x += delta.x;
+			start.y += sign.y;
 		}
 	}
 }
