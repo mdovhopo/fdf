@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "libft/libft.h"
+# include "libft.h"
 # define END_IS_ENDL(x) (x == '\n' ? 1 : 0)
 # define END_IS_NULL(x) (x == '\0' ? 1 : 0)
 # define STOP_READING break ;

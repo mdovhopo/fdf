@@ -6,13 +6,15 @@
 #    By: mdovhopo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/26 16:19:10 by mdovhopo          #+#    #+#              #
-#    Updated: 2018/12/03 19:49:36 by mdovhopo         ###   ########.fr        #
+#    Updated: 2018/12/04 19:38:10 by mdovhopo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror
+INC = ../includes
+
+FLAGS = -Wall -Wextra -Werror -I$(INC)
 
 SRC_C =ft_memset.c \
        ft_bzero.c \
@@ -80,6 +82,7 @@ SRC_C =ft_memset.c \
 	   ft_add_vec3.c \
 	   ft_new_intvec2.c \
 	   ft_show_binary.c \
+	   ft_atoi16.c \
 
 SRC_O = $(SRC_C:.c=.o)
 

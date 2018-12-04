@@ -5,43 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mdovhopo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2018/11/24 14:33:31 by mdovhopo          #+#    #+#              #
-#    Updated: 2018/11/24 14:33:33 by mdovhopo         ###   ########.fr        #
+#    Created: 2018/12/04 20:40:56 by mdovhopo          #+#    #+#              #
+#    Updated: 2018/12/04 20:40:59 by mdovhopo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME = v1_fdf
 
-MAP = ./fdf/maps/42.fdf
+NAME = fdf
 
-FLAGS = -Wall -Wextra -Werror
+LIBFT = libft
 
-INCLUDES = minilibx_macos
+GNL =  get_next_line
 
-GNL_INC = get_next_line
+INC = includes
 
-SRC_GNL =  $(GNL_INC)/get_next_line.c $(GNL_INC)/libft/libft.a
+MLX = /usr/local/lib
 
-SRC_C = fdf.c render.c grid.c line.c isoprojection.c readmap.c rect.c del_win.c mouse_pressed.c deal_key.c
+FLAGS = -Wall -Wextra -Werror -I$(INC)
 
-SOME_STAFF_FOR_MLX = -L minilibx_macos -lmlx -framework OpenGL -framework Appkit
+SRC_C = fdf.c isoprojection.c grid.c deal_key.c mouse_pressed.c line.c \
+		readmap.c render.c print_usage.c del_win.c
+
+FRAMEWORKS = -framework OpenGL -framework Appkit
 
 SRC_O = $(SRC_C:.c=.o)
 
 CC = clang
 
-%.o: %.c
-	$(CC) -o $@ -c $<
-
 all: $(NAME)
 
 $(NAME): $(SRC_O)
-	$(CC) -o $(NAME) -I $(INCLUDES) $(SRC_O) $(SRC_GNL) $(SOME_STAFF_FOR_MLX)
+	@echo "Compiling libft..."
+	@make -C $(LIBFT)
+	@echo "Compiling project..."
+	@$(CC) $(FLAGS) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft $(GNL)/get_next_line.c -L $(MLX) -lmlx $(FRAMEWORKS)
+	@echo "Done"
 
-test:
-	clang test.c -L minilibx_macos -lmlx -framework OpenGL -framework Appkit
-	./a.out
+%.o: %.c
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:	
 	@/bin/rm -f $(SRC_O)
@@ -60,3 +62,4 @@ magic:
 	@echo "	しーＪ　　　°。+ *´¨)"
 	@echo "                 .· ´¸.·*´¨) ¸.·*¨)"
 	@echo "　　　　　　　　(¸.·´ (¸.·'* ☆"
+

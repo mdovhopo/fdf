@@ -34,14 +34,14 @@ void	grid(t_win *win, int offsetx, int offsety, int res)
 		{
 			if (x + 1 < win->map->sizex)
 				line(ft_new_intvec2(offsetx + win->bufferx[z][x] * res + tx,
-					offsety + win->buffery[z][x] * res + ty),
+									offsety + win->buffery[z][x] * res + ty),
 					ft_new_intvec2(offsetx + win->bufferx[z][x + 1] * res + tx,
-					offsety + win->buffery[z][x + 1] * res + ty), win);
+							offsety + win->buffery[z][x + 1] * res + ty), win);
 			if (z + 1 < win->map->sizez)
 				line(ft_new_intvec2(offsetx + win->bufferx[z][x] * res + tx,
-					offsety + win->buffery[z][x] * res + ty),
+									offsety + win->buffery[z][x] * res + ty),
 					ft_new_intvec2(offsetx + win->bufferx[z + 1][x] * res + tx,
-					offsety + win->buffery[z + 1][x] * res + ty), win);
+							offsety + win->buffery[z + 1][x] * res + ty), win);
 		}
 	}
 }

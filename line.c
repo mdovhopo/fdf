@@ -26,9 +26,9 @@ void	line(t_intvec2 start, t_intvec2 end, t_win *win)
 	delta = ft_new_intvec2(abs(end.x - start.x), -abs(end.y - start.y));
 	sign = ft_new_intvec2(start.x < end.x ? 1 : -1, start.y < end.y ? 1 : -1);
 	error = ft_new_intvec2(delta.x + delta.y, 2 * (delta.x + delta.y));
-	while (start.x != end.x && start.y != end.y)
+	while (start.x != end.x || start.y != end.y)
 	{
-		if (start.x > 0 && start.x < WIDTH && start.y > 60 && start.y < HEIGHT)
+		if (start.x > 0 && start.x < WIDTH && start.y > 0 && start.y < HEIGHT)
 			mlx_pixel_put(win->mlx_ptr, win->win_ptr,
 				start.x, start.y, win->color);
 		error.y = error.x * 2;

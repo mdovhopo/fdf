@@ -16,18 +16,20 @@ int		mouse_pressed(int key, int x, int y, void *param)
 {
 	t_win *win;
 
+	x += 42;
+	y -= 42;
 	win = (t_win *)param;
 	if (key == 5)
 	{
 		win->scale += 3;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
-		render(win, 0);
+		render(win);
 	}
 	else if (key == 4)
 	{
 		win->scale -= 3;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
-		render(win, 0);
+		render(win);
 	}
 	return (0);
 }

@@ -17,7 +17,6 @@ static int		count_height(char *s)
 	int		fd;
 	char	*line;
 	int		c_y;
-	int		ret;
 
 	c_y = 0;
 	fd = open(s, O_RDONLY);
@@ -57,7 +56,6 @@ static int		fill_map(char *line, int *line_int)
 static int		find_width(char *s, t_map *map, int *fd)
 {
 	char	*line;
-	int		length;
 
 	*fd = open(s, O_RDONLY);
 	get_next_line(*fd, &line);

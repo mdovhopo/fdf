@@ -12,6 +12,21 @@
 
 #include "fdf.h"
 
+static void		say_hello(t_win *win)
+{
+	void	*w;
+	void	*mlx;
+
+	w = win->win_ptr;
+	mlx = win->mlx_ptr;
+	mlx_string_put(mlx, w, WIDTH / 2 - 50, HEIGHT / 2 - 100,
+					0x00FFFF, "Hi, i am FDF :)");
+	mlx_string_put(mlx, w, WIDTH / 2 - 72, HEIGHT / 2 - 50,
+					0x00FFFF, "Press enter to start");
+	mlx_string_put(mlx, w, WIDTH / 2 - 80, HEIGHT / 2,
+					0x00FFFF, "Press F to pay respect");
+}
+
 static void		init_win(t_win **window)
 {
 	t_win	*win;
@@ -38,8 +53,6 @@ static void		init_win(t_win **window)
 	}
 }
 
-// TODO norme the libft and gnl and remove test
-
 int				main(int argc, char **argv)
 {
 	t_win *win1;
@@ -59,7 +72,7 @@ int				main(int argc, char **argv)
 		exit(0);
 	}
 	init_win(&win1);
-	render(win1, 1);
+	say_hello(win1);
 	mlx_key_hook(win1->win_ptr, deal_key, (void *)win1);
 	mlx_mouse_hook(win1->win_ptr, mouse_pressed, (void *)win1);
 	mlx_loop(win1->mlx_ptr);
