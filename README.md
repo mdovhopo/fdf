@@ -9,9 +9,9 @@ a parameter to your program. Here is an example:
 
 
 Each number corresponds to a point in space:<br />
-_•_The horizontal position corresponds to its axis.<br />
-_•_The vertical position corresponds to its ordinate.<br />
-_•_The value corresponds to its altitude.<br />
+•The horizontal position corresponds to its axis.<br />
+•The vertical position corresponds to its ordinate.<br />
+•The value corresponds to its altitude.<br />
 
 If you execute your program fdf on this file, we should see something like this:
 
