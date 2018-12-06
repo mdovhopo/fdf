@@ -84,16 +84,12 @@ static void	rotate(int key, t_win *win)
 	if (key == 88 || key == 86)
 	{
 		win->alpha += key == 88 ? 1 : -1;
-		if (win->alpha >= 360)
-			win->alpha = 0;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 		render(win);
 	}
 	else if (key == 91 || key == 84)
 	{
 		win->beta += key == 91 ? 1 : -1;
-		if (win->beta >= 360)
-			win->beta = 0;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 		render(win);
 	}

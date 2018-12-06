@@ -41,7 +41,7 @@ libft/libft.a:
 
 $(NAME): libft/libft.a $(SRC_O)
 	@$(CC) $(FLAGS) -I $(INC) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft $(GNL)/get_next_line.c -L $(MLX) -lmlx $(FRAMEWORKS)
-	@echo "$(NAME) Has been created, to run, do ./$(NAME)"
+	@echo "$(NAME) Has been created, run ./$(NAME) <map>"
 
 $(SRC)/%.o: $(SRC)/%.c | src
 	@$(CC) $(FLAGS) -I $(INC) -I . -c $< -o $@
