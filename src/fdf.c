@@ -23,8 +23,6 @@ static void		say_hello(t_win *win)
 					0x00FFFF, "Hi, i am FDF :)");
 	mlx_string_put(mlx, w, WIDTH / 2 - 72, HEIGHT / 2 - 50,
 					0x00FFFF, "Press enter to start");
-	mlx_string_put(mlx, w, WIDTH / 2 - 80, HEIGHT / 2,
-					0x00FFFF, "Press F to pay respect");
 }
 
 static void		init_win(t_win **window)
@@ -53,6 +51,11 @@ static void		init_win(t_win **window)
 	}
 }
 
+int				exit_hook(void)
+{
+	exit(0);
+}
+
 int				main(int argc, char **argv)
 {
 	t_win *win1;
@@ -73,7 +76,8 @@ int				main(int argc, char **argv)
 	}
 	init_win(&win1);
 	say_hello(win1);
-	mlx_key_hook(win1->win_ptr, deal_key, (void *)win1);
+	mlx_hook(win1->win_ptr, 2, 0, deal_key, (void *)win1);
+	mlx_hook(win1->win_ptr, 17, 0, exit_hook, (void *)win1);
 	mlx_mouse_hook(win1->win_ptr, mouse_pressed, (void *)win1);
 	mlx_loop(win1->mlx_ptr);
 	return (0);

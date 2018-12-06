@@ -76,5 +76,6 @@ void			del_win(t_win *win);
 int				mouse_pressed(int key, int x, int y, void *param);
 int				deal_key(int key, void *param);
 void			print_usage(void);
+void			interface(t_win *win);
 
 #endif

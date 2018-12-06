@@ -20,12 +20,13 @@ GNL =  get_next_line
 
 INC = includes
 
+SRC = src
+
 MLX = /usr/local/lib
 
-FLAGS = -Wall -Wextra -Werror -I$(INC)
+FLAGS = -Wall -Wextra -Werror 
 
-SRC_C = fdf.c isoprojection.c grid.c deal_key.c mouse_pressed.c line.c \
-		readmap.c render.c print_usage.c del_win.c
+SRC_C = $(addprefix $(SRC)/, fdf.c isoprojection.c grid.c deal_key.c mouse_pressed.c line.c readmap.c render.c print_usage.c del_win.c interface.c)
 
 FRAMEWORKS = -framework OpenGL -framework Appkit
 
@@ -35,18 +36,22 @@ CC = clang
 
 all: $(NAME)
 
-$(NAME): $(SRC_O)
-	@echo "Compiling libft..."
+libft/libft.a:
 	@make -C $(LIBFT)
-	@echo "Compiling project..."
-	@$(CC) $(FLAGS) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft $(GNL)/get_next_line.c -L $(MLX) -lmlx $(FRAMEWORKS)
-	@echo "Done"
 
-%.o: %.c
-	@$(CC) $(FLAGS) -o $@ -c $<
+$(NAME): libft/libft.a $(SRC_O)
+	@$(CC) $(FLAGS) -I $(INC) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft $(GNL)/get_next_line.c -L $(MLX) -lmlx $(FRAMEWORKS)
+	@echo "$(NAME) Has been created, to run, do ./$(NAME)"
+
+$(SRC)/%.o: $(SRC)/%.c | src
+	@$(CC) $(FLAGS) -I $(INC) -I . -c $< -o $@
 
 clean:	
 	@/bin/rm -f $(SRC_O)
+
+lclean:
+	make -C $(LIBFT) fclean
+	make fclean
 
 fclean: clean
 	@/bin/rm -f $(NAME)

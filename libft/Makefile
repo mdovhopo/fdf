@@ -90,6 +90,7 @@ all: $(NAME)
 
 $(NAME): $(SRC_O)
 	@ar rc $(NAME) $(SRC_O)
+	@echo "$(NAME) Has been created."
 
 %.o: %.c
 	@gcc $(FLAGS) -o $@ -c $<
