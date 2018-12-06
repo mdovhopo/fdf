@@ -24,7 +24,9 @@ SRC = src
 
 MLX = /usr/local/lib
 
-FLAGS = -Wall -Wextra -Werror 
+f = -Wall -Wextra -Werror 
+
+FLAGS = 
 
 SRC_C = $(addprefix $(SRC)/, fdf.c isoprojection.c grid.c deal_key.c mouse_pressed.c line.c readmap.c render.c print_usage.c del_win.c interface.c)
 

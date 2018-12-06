@@ -63,13 +63,13 @@ int				main(int argc, char **argv)
 	win1 = (t_win *)malloc(sizeof(t_win));
 	if (argc != 2)
 	{
-		write(1, USAGE, 24);
+		ft_putendl(USAGE);
 		free(win1);
 		exit(0);
 	}
 	if ((win1->map = readmap(argv[1])) == NULL)
 	{
-		write(1, NO_FILE, 30);
+		ft_putendl("Something went wrong...");
 		free(win1->map);
 		free(win1);
 		exit(0);
@@ -80,5 +80,6 @@ int				main(int argc, char **argv)
 	mlx_hook(win1->win_ptr, 17, 0, exit_hook, (void *)win1);
 	mlx_mouse_hook(win1->win_ptr, mouse_pressed, (void *)win1);
 	mlx_loop(win1->mlx_ptr);
+	system("sleep 5");
 	return (0);
 }

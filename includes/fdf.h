@@ -29,9 +29,10 @@
 # define TO_DEGREE 180 / M_PI
 # define MIN_RES 4
 # define MAX_RES 150
-# define USAGE "Usage: ./fdf <filename>\n"
-# define WRONG_LINE_LENGTH "wrong line length\n"
-# define NO_FILE "no such file or file is empty\n"
+# define USAGE "Usage: ./fdf <filename>"
+# define WRONG_LINE_LENGTH "wrong line length"
+# define NULL_FILE_LENGTH "map width can't be 0"
+# define NO_FILE "No such file"
 
 typedef struct	s_map
 {
