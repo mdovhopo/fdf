@@ -8,11 +8,10 @@ a parameter to your program. Here is an example:
 ![alt text](https://github.com/mdovhopo/fdf/blob/master/img/sample1.png)
 
 
-Each number corresponds to a point in space:
-
-The horizontal position corresponds to its axis.
-The vertical position corresponds to its ordinate.
-The value corresponds to its altitude.
+Each number corresponds to a point in space:<br />
+ • The horizontal position corresponds to its axis.<br />
+ • The vertical position corresponds to its ordinate.<br />
+ • The value corresponds to its altitude.<br />
 
 If you execute your program fdf on this file, we should see something like this:
 
