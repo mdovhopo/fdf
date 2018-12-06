@@ -30,6 +30,11 @@ static int		count_height(char *s)
 		free(line);
 	}
 	close(fd);
+	if (c_y < 2)
+	{
+		ft_putendl("map height can't be less than 2");
+		exit(0);
+	}
 	return (c_y);
 }
 
