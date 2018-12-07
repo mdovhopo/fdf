@@ -16,17 +16,13 @@ NAME = fdf
 
 LIBFT = libft
 
-GNL =  get_next_line
-
 INC = includes
 
 SRC = src
 
 MLX = /usr/local/lib
 
-f = -Wall -Wextra -Werror 
-
-FLAGS = 
+FLAGS = -Wall -Wextra -Werror 
 
 SRC_C = $(addprefix $(SRC)/, fdf.c isoprojection.c grid.c deal_key.c mouse_pressed.c line.c readmap.c render.c print_usage.c del_win.c interface.c)
 
@@ -42,11 +38,13 @@ libft/libft.a:
 	@make -C $(LIBFT)
 
 $(NAME): libft/libft.a $(SRC_O)
+	@echo "[Compiling] $@"
 	@$(CC) $(FLAGS) -I $(INC) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft \
-	$(GNL)/get_next_line.c -L $(MLX) -lmlx $(FRAMEWORKS)
-	@echo "$(NAME) Has been created, run ./$(NAME) <map>"
+	-L $(MLX) -lmlx $(FRAMEWORKS)
+	@echo "$(NAME) Has been created, run ./$@ <map>"
 
-$(SRC)/%.o: $(SRC)/%.c | src
+$(SRC)/%.o: $(SRC)/%.c 
+	@echo "[Compiling] $@"
 	@$(CC) $(FLAGS) -I $(INC) -I . -c $< -o $@
 
 clean:	

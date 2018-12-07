@@ -72,19 +72,12 @@ static void		calculate_image(t_win *win)
 
 void			render(t_win *win)
 {
-	int		res;
 	int		offsetx;
 	int		offsety;
 
-	res = (WIDTH / win->map->sizex) / 2;
-	win->scale += (res + win->scale < MIN_RES ? 3 : 0);
-	win->scale -= (res + win->scale > MAX_RES ? 3 : 0);
-	res += win->scale;
-	res = (res < MIN_RES ? MIN_RES : res);
-	res = (res > MAX_RES ? MAX_RES : res);
 	offsetx = WIDTH / 2;
 	offsety = HEIGHT / 2;
 	calculate_image(win);
-	grid(win, offsetx, offsety, res);
+	grid(win, offsetx, offsety, win->scale);
 	interface(win);
 }

@@ -36,7 +36,7 @@ static void		init_win(t_win **window)
 	win->mlx_ptr = mlx_init();
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGHT, "MY LITTLE FDF");
 	win->color = 0x00FFFF;
-	win->scale = 0;
+	win->scale = (WIDTH / win->map->sizex) / 2;
 	win->translate.x = 0;
 	win->translate.y = 0;
 	win->alpha = 0;

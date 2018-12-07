@@ -47,7 +47,7 @@ static void	destroy_or_reset_window(int key, t_win *win)
 	}
 	else if (key == 117)
 	{
-		win->scale = 0;
+		win->scale = (WIDTH / win->map->sizex) / 2;
 		win->alpha = 0;
 		win->beta = 0;
 		win->gamma = 0;

@@ -19,15 +19,14 @@
 # include <unistd.h>
 # include <math.h>
 # include <stdlib.h>
-# include "get_next_line.h"
 # include "libft.h"
 
-# define WIDTH 2000
-# define HEIGHT 1200
+# define WIDTH 1280
+# define HEIGHT 720
 # define IS_ODD(x) (x % 2 == 0 ? 0 : 1)
 # define TO_RAD M_PI / 180
 # define TO_DEGREE 180 / M_PI
-# define MIN_RES 4
+# define MIN_RES 1
 # define MAX_RES 150
 # define USAGE "Usage: ./fdf <filename>"
 # define WRONG_LINE_LENGTH "wrong line length"

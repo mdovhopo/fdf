@@ -83,6 +83,7 @@ SRC_C =ft_memset.c \
 	   ft_new_intvec2.c \
 	   ft_show_binary.c \
 	   ft_atoi16.c \
+	   get_next_line.c \
 
 SRC_O = $(SRC_C:.c=.o)
 
@@ -95,6 +96,7 @@ $(NAME): $(SRC_O)
 	@echo "$(NAME) Has been created."
 
 %.o: %.c
+	@echo "[Compiling] $@"
 	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:

@@ -14,22 +14,24 @@
 
 int		mouse_pressed(int key, int x, int y, void *param)
 {
-	t_win *win;
+	t_win	*win;
 
-	x += 42;
-	y -= 42;
 	win = (t_win *)param;
 	if (key == 5)
 	{
-		win->scale += 3;
+		if (win->scale < MAX_RES + 1)
+			win->scale += 3;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 		render(win);
 	}
 	else if (key == 4)
 	{
-		win->scale -= 3;
+		if (win->scale > MIN_RES)
+			win->scale -= 3;
 		mlx_clear_window(win->mlx_ptr, win->win_ptr);
 		render(win);
 	}
+	x = y;
+	y = x;
 	return (0);
 }
