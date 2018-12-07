@@ -19,17 +19,21 @@ int		mouse_pressed(int key, int x, int y, void *param)
 	win = (t_win *)param;
 	if (key == 5)
 	{
-		if (win->scale < MAX_RES + 1)
+		if (win->scale + 3 < MAX_RES)
+		{
 			win->scale += 3;
-		del_img(win);
-		render(win);
+			del_img(win);
+			render(win);
+		}
 	}
 	else if (key == 4)
 	{
-		if (win->scale > MIN_RES)
+		if (win->scale - 3 > MIN_RES)
+		{
 			win->scale -= 3;
-		del_img(win);
-		render(win);
+			del_img(win);
+			render(win);
+		}
 	}
 	x = y;
 	y = x;
