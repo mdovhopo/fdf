@@ -21,8 +21,8 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 2000
+# define HEIGHT 1200
 # define IS_ODD(x) (x % 2 == 0 ? 0 : 1)
 # define TO_RAD M_PI / 180
 # define TO_DEGREE 180 / M_PI
@@ -54,6 +54,11 @@ typedef struct	s_win
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	void		*img_ptr;
+	char		*img;
+	int			bits_per_pixel;
+	int			size_line;
+	int			endian;
 	int			scale;
 	int			color;
 	int			alpha;
@@ -77,5 +82,6 @@ int				mouse_pressed(int key, int x, int y, void *param);
 int				deal_key(int key, void *param);
 void			print_usage(void);
 void			interface(t_win *win);
+void			del_img(t_win *win);
 
 #endif

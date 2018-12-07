@@ -29,8 +29,7 @@ void	line(t_intvec2 start, t_intvec2 end, t_win *win)
 	while (start.x != end.x || start.y != end.y)
 	{
 		if (start.x > 0 && start.x < WIDTH && start.y > 0 && start.y < HEIGHT)
-			mlx_pixel_put(win->mlx_ptr, win->win_ptr,
-				start.x, start.y, win->color);
+			((int *)win->img)[start.y * WIDTH + start.x] = win->color;
 		error.y = error.x * 2;
 		if (error.y >= delta.y)
 		{

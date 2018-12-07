@@ -21,13 +21,13 @@ static void	translate(int key, t_win *win)
 	if (key == 123 || key == 124)
 	{
 		win->translate.x += key == 123 ? 10 : -10;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 	else if (key == 126 || key == 125)
 	{
 		win->translate.y += key == 126 ? 10 : -10;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 }
@@ -41,8 +41,6 @@ static void	destroy_or_reset_window(int key, t_win *win)
 {
 	if (key == 53)
 	{
-		del_win(win);
-		mlx_destroy_window(win->mlx_ptr, win->win_ptr);
 		exit(0);
 	}
 	else if (key == 117)
@@ -54,7 +52,7 @@ static void	destroy_or_reset_window(int key, t_win *win)
 		win->translate.x = 0;
 		win->translate.y = 0;
 		win->color = 0x00FFFF;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 }
@@ -69,7 +67,7 @@ static void	change_color(int key, t_win *win)
 		win->color = 0xFF0000;
 	else
 		win->color = key == 5 ? 0x00FF00 : 0x0000FF;
-	mlx_clear_window(win->mlx_ptr, win->win_ptr);
+	del_img(win);
 	render(win);
 }
 
@@ -84,13 +82,13 @@ static void	rotate(int key, t_win *win)
 	if (key == 88 || key == 86)
 	{
 		win->alpha += key == 88 ? 1 : -1;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 	else if (key == 91 || key == 84)
 	{
 		win->beta += key == 91 ? 1 : -1;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 	else if (key == 69 || key == 78)
@@ -98,7 +96,7 @@ static void	rotate(int key, t_win *win)
 		win->gamma += key == 69 ? 1 : -1;
 		if (win->gamma >= 360)
 			win->gamma = 0;
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 }
@@ -121,7 +119,7 @@ int			deal_key(int key, void *param)
 		print_usage();
 	else if (key == 36)
 	{
-		mlx_clear_window(win->mlx_ptr, win->win_ptr);
+		del_img(win);
 		render(win);
 	}
 	return (0);

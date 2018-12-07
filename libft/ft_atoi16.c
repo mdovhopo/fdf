@@ -10,15 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdio.h>
+
+static int			is_a_f(char c)
+{
+	return ((c > 64 && c < 71) || (c > 96 && c < 103));
+}
 
 static int			length(char *s)
 {
 	int len;
 
 	len = 0;
-	while (((s[len] > 47 && s[len] < 58)
-		|| (s[len] > 64 && s[len] < 71)) && s[len])
+	while ((ft_isdigit(s[len]) || is_a_f(s[len])) && s[len])
 		len++;
 	return (len);
 }
@@ -30,6 +35,13 @@ static int			is_white_space(char *s)
 		return (1);
 	else
 		return (0);
+}
+
+static int			is_upper(char c)
+{
+	if (c < 90)
+		return (55);
+	return (87);
 }
 
 int					ft_atoi16(const char *str)
@@ -47,11 +59,10 @@ int					ft_atoi16(const char *str)
 	while ((is_white_space(s)) && *s != '\0')
 		s++;
 	len = length(s);
-	while (len > 0 && ((s[len - 1] > 47 && s[len - 1] < 58)
-		|| (s[len - 1] > 64 && s[len - 1] < 71)))
+	while (len > 0 && (ft_isdigit(s[len - 1]) || is_a_f(s[len - 1])))
 	{
-		if (s[len - 1] > 64 && s[len - 1] < 71)
-			tmp = s[len - 1] - 55;
+		if (is_a_f(s[len - 1]))
+			tmp = s[len - 1] - is_upper(s[len - 1]);
 		else
 			tmp = s[len - 1] - '0';
 		res += tmp * base;

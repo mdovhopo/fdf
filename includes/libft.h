@@ -136,6 +136,6 @@ int				ft_make_coffee(int n);
 size_t			ft_count_words(const char *s, char c);
 void			ft_show_binary(unsigned int x);
 t_intvec2		ft_new_intvec2(int x, int y);
-int				ft_atoi16(char *s);
+int				ft_atoi16(const char *s);
 
 #endif

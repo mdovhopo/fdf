@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_pressed.c                                    :+:      :+:    :+:   */
+/*   del_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mdovhopo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/03 17:09:03 by mdovhopo          #+#    #+#             */
-/*   Updated: 2018/12/03 17:09:30 by mdovhopo         ###   ########.fr       */
+/*   Created: 2018/12/07 18:42:54 by mdovhopo          #+#    #+#             */
+/*   Updated: 2018/12/07 18:44:18 by mdovhopo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		mouse_pressed(int key, int x, int y, void *param)
+void	del_img(t_win *win)
 {
-	t_win	*win;
-
-	win = (t_win *)param;
-	if (key == 5)
-	{
-		if (win->scale < MAX_RES + 1)
-			win->scale += 3;
-		del_img(win);
-		render(win);
-	}
-	else if (key == 4)
-	{
-		if (win->scale > MIN_RES)
-			win->scale -= 3;
-		del_img(win);
-		render(win);
-	}
-	x = y;
-	y = x;
-	return (0);
+	mlx_destroy_image(win->mlx_ptr, win->img_ptr);
+	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
 }

@@ -27,6 +27,16 @@ static void		say_hello(t_win *win)
 					0x00FFFF, "Press F to print Usage to console");
 }
 
+static void		init_img(t_win *win)
+{
+	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
+	win->bits_per_pixel = 4;
+	win->size_line = HEIGHT;
+	win->endian = 0;
+	win->img = mlx_get_data_addr(win->img_ptr, &win->bits_per_pixel,
+		&win->size_line, &win->endian);
+}
+
 static void		init_win(t_win **window)
 {
 	t_win	*win;
@@ -35,6 +45,7 @@ static void		init_win(t_win **window)
 	win = *window;
 	win->mlx_ptr = mlx_init();
 	win->win_ptr = mlx_new_window(win->mlx_ptr, WIDTH, HEIGHT, "MY LITTLE FDF");
+	init_img(win);
 	win->color = 0x00FFFF;
 	win->scale = (WIDTH / win->map->sizex) / 2;
 	win->translate.x = 0;
@@ -60,27 +71,27 @@ int				exit_hook(void)
 
 int				main(int argc, char **argv)
 {
-	t_win *win1;
+	t_win *win;
 
-	win1 = (t_win *)malloc(sizeof(t_win));
+	win = (t_win *)malloc(sizeof(t_win));
 	if (argc != 2)
 	{
 		ft_putendl(USAGE);
-		free(win1);
+		free(win);
 		exit(0);
 	}
-	if ((win1->map = readmap(argv[1])) == NULL)
+	if ((win->map = readmap(argv[1])) == NULL)
 	{
 		ft_putendl("Something went wrong...");
-		free(win1->map);
-		free(win1);
+		free(win->map);
+		free(win);
 		exit(0);
 	}
-	init_win(&win1);
-	say_hello(win1);
-	mlx_hook(win1->win_ptr, 2, 0, deal_key, (void *)win1);
-	mlx_hook(win1->win_ptr, 17, 0, exit_hook, (void *)win1);
-	mlx_mouse_hook(win1->win_ptr, mouse_pressed, (void *)win1);
-	mlx_loop(win1->mlx_ptr);
+	init_win(&win);
+	say_hello(win);
+	mlx_hook(win->win_ptr, 2, 0, deal_key, (void *)win);
+	mlx_hook(win->win_ptr, 17, 0, exit_hook, (void *)win);
+	mlx_mouse_hook(win->win_ptr, mouse_pressed, (void *)win);
+	mlx_loop(win->mlx_ptr);
 	return (0);
 }

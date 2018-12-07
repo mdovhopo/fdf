@@ -79,5 +79,6 @@ void			render(t_win *win)
 	offsety = HEIGHT / 2;
 	calculate_image(win);
 	grid(win, offsetx, offsety, win->scale);
+	mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, win->img_ptr, 0, 0);
 	interface(win);
 }
