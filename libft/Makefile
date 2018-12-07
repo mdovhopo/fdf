@@ -14,7 +14,7 @@ NAME = libft.a
 
 INC = ../includes
 
-FLAGS = -Wall -Wextra -Werror -I$(INC)
+FLAGS = -Wall -Wextra -Werror -I $(INC)
 
 SRC_C =ft_memset.c \
        ft_bzero.c \
@@ -86,6 +86,8 @@ SRC_C =ft_memset.c \
 
 SRC_O = $(SRC_C:.c=.o)
 
+CC = clang
+
 all: $(NAME)
 
 $(NAME): $(SRC_O)
@@ -93,7 +95,7 @@ $(NAME): $(SRC_O)
 	@echo "$(NAME) Has been created."
 
 %.o: %.c
-	@gcc $(FLAGS) -o $@ -c $<
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	@/bin/rm -f $(SRC_O)

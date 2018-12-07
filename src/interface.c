@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static void bolshit(char **s, void *mlx, void *w)
+static void	bolshit(char **s, void *mlx, void *w)
 {
 	mlx_string_put(mlx, w, 0, 0, 0xffffff, "alpha:");
 	mlx_string_put(mlx, w, 0, 20, 0xffffff, "beta:");
