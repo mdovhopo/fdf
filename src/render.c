@@ -13,10 +13,9 @@
 #include "fdf.h"
 
 /*
-** recalculate shows by what angle fdf must turn element
-** 2 - by y
-** 3 - by z
-** 4 - by x
+** 31-33 rotation by y
+** 35-37 - rotation by x
+** 39-41 - rotation by z
 */
 
 static t_vec3	rotation(t_vec3 location, t_win *win)

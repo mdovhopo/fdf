@@ -14,6 +14,14 @@
 
 void	del_img(t_win *win)
 {
-	mlx_destroy_image(win->mlx_ptr, win->img_ptr);
-	win->img_ptr = mlx_new_image(win->mlx_ptr, WIDTH, HEIGHT);
+	int x;
+	int	y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			((int *)win->img)[y * WIDTH + x] = 0x000000;
+	}
 }

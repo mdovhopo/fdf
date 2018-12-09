@@ -20,13 +20,11 @@ INC = includes
 
 SRC = src
 
-MLX = /usr/local/lib
+MLX = minilibx_macos
 
-f = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 
-FLAGS = 
-
-SRC_C = $(addprefix $(SRC)/, fdf.c isoprojection.c grid.c del_img.c deal_key.c mouse_pressed.c line.c readmap.c render.c print_usage.c del_win.c interface.c)
+SRC_C = $(addprefix $(SRC)/, fdf.c isoprojection.c grid.c del_img.c deal_key.c mouse_pressed.c line.c readmap.c render.c print_usage.c interface.c)
 
 FRAMEWORKS = -framework OpenGL -framework Appkit
 
@@ -39,7 +37,10 @@ all: $(NAME)
 libft/libft.a:
 	@make -C $(LIBFT)
 
-$(NAME): libft/libft.a $(SRC_O)
+minilibx_macos/libmlx.a:
+	@make -C $(MLX)
+
+$(NAME): minilibx_macos/libmlx.a libft/libft.a $(SRC_O)
 	@echo "[Compiling] $@"
 	@$(CC) $(FLAGS) -I $(INC) -o $(NAME) $(SRC_O) -L $(LIBFT) -lft \
 	-L $(MLX) -lmlx $(FRAMEWORKS)
@@ -54,6 +55,7 @@ clean:
 
 lclean:
 	@make -C $(LIBFT) fclean
+	@make -C $(MLX) clean
 	@make fclean
 
 fclean: clean
