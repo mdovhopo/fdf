@@ -13,6 +13,6 @@ Each number corresponds to a point in space:<br />
 •The vertical position corresponds to its ordinate.<br />
 •The value corresponds to its altitude.<br />
 
-If you execute your program fdf on this file, we should see something like this:
+If you execute program fdf on this file, we should see something like this:
 
 ![alt text](https://github.com/mdovhopo/fdf/blob/master/img/sample2.png)
